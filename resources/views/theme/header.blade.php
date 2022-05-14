@@ -29,19 +29,19 @@
 
                     <!-- Top Cart
                     ============================================= -->
-                    @auth
+                    @if(session()->has('user'))
                     <div class="dropdown mx-3 mr-lg-0">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">  <i class="icon-user"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                             <!-- <a class="dropdown-item text-left" href="#">Profile</a> -->
                             <!-- <div class="dropdown-divider"></div> -->
-                            <a class="dropdown-item text-left" href="{{ route('Profileedit') }}">Profil <i class="icon-user"></i></a>
+{{--                            <a class="dropdown-item text-left" href="{{ route('Profileedit') }}">Profil <i class="icon-user"></i></a>--}}
                             <!-- <a class="dropdown-item text-left" href="#">Profile</a> -->
                             <!-- <div class="dropdown-divider"></div> -->
                             <a class="dropdown-item text-left" href="{{route('logout')}}">Logout <i class="icon-signout"></i></a>
                         </ul>
                     </div>
-                    @endauth
+                    @endif
                         <!-- #top-cart end -->
 
                 </div>

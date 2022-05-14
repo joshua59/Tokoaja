@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+
 // use App\Mail\Office\WelcomeMail;
 use Exception;
 
@@ -18,10 +21,12 @@ class AuthController extends Controller
     {
         $this->middleware('guest:web')->except('do_logout');
     }
+
     public function index()
     {
         return view('page.auth.main');
     }
+
     public function do_login(Request $request)
     {
         $email = $request->email;
@@ -33,13 +38,17 @@ class AuthController extends Controller
 
         // return $response->json();
 
-        if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember))
-        {
-            return response()->json();
-        }else{
-            return response()->json();
+
+        $responseDecoded = json_decode($response->body());
+
+        if ($responseDecoded->status == true) {
+            $userCredential = new UserCredential($responseDecoded->data);
+            UserCredential::login($userCredential);
         }
+
+        return $response->json();
     }
+
     public function do_register(Request $request)
     {
         $nama = $request->nama;
@@ -59,12 +68,11 @@ class AuthController extends Controller
         ]);
 
         return $response->json();
-
     }
+
     public function do_logout()
     {
-        $user = Auth::guard('web')->user();
-        Auth::logout($user);
+        UserCredential::logout();
         return redirect()->route('auth');
     }
 }

@@ -24,7 +24,8 @@ Route::get('/',[ProductController::class,'index'])->name('home');
 Route::get('auth',[AuthController::class, 'index'])->name('auth');
 Route::post('login',[AuthController::class, 'do_login'])->name('login');
 Route::post('register',[AuthController::class, 'do_register'])->name('register');
+Route::get('logout',[AuthController::class, 'do_logout'])->name('logout');
 
 Route::group(['middleware' => 'auth:web'], function () {
-    Route::get('logout',[AuthController::class, 'do_logout'])->name('logout');
+
 });
