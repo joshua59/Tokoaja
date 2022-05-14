@@ -35,7 +35,7 @@
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                             <!-- <a class="dropdown-item text-left" href="#">Profile</a> -->
                             <!-- <div class="dropdown-divider"></div> -->
-{{--                            <a class="dropdown-item text-left" href="{{ route('Profileedit') }}">Profil <i class="icon-user"></i></a>--}}
+                           <a class="dropdown-item text-left" href="{{ route('profile') }}">Profil <i class="icon-user"></i></a>
                             <!-- <a class="dropdown-item text-left" href="#">Profile</a> -->
                             <!-- <div class="dropdown-divider"></div> -->
                             <a class="dropdown-item text-left" href="{{route('logout')}}">Logout <i class="icon-signout"></i></a>
@@ -58,12 +58,16 @@
                         <li class="menu-item">
                             <a class="menu-link" href="{{route('home')}}"><div>Beranda</div></a>
                         </li>
+                        @if(session()->has('user'))
+                        @if(session()->get('user')->role == 'seller')
                         <li class="menu-item">
-                            <a class="menu-link" href="{{route('home')}}"><div>Produk Saya</div></a>
+                            <a class="menu-link" href="{{route('sellerproduct')}}"><div>Produk Saya</div></a>
                         </li>
                         <li class="menu-item mega-menu">
                             <a class="menu-link" href="{{route('home')}}"><div>Orderan Masuk</div></a>
                         </li>
+                        @endif
+                        @endif
                     </ul>
 
                 </nav><!-- #primary-menu end -->

@@ -44,9 +44,19 @@ class AuthController extends Controller
         if ($responseDecoded->status == true) {
             $userCredential = new UserCredential($responseDecoded->data);
             UserCredential::login($userCredential);
+            return response()->json([
+                'alert' => 'success',
+                'message' => 'Selamat datang di Tokoaja',
+                'callback' => 'reload',
+            ]);
+        }else{
+            return response()->json([
+                'alert' => 'error',
+                'message' => 'Maaf, sepertinya ada beberapa kesalahan yang terdeteksi, silakan coba lagi.',
+            ]);
         }
 
-        return $response->json();
+        // return $response->json();
     }
 
     public function do_register(Request $request)

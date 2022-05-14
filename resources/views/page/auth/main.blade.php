@@ -24,7 +24,7 @@
                         <input type="password" placeholder="Password" name="password" id="password_login" data-login="2"/>
                     </div>
                     <button id="tombol_login" onclick="auth('#tombol_login','#form_login','login','Login');" type="button" class="btn solid" data-login="3">Login</button>
-                    <a id="tombol_login" href="{{ route('logout') }}" class="btn solid">Logout</a>
+                    {{-- <a id="tombol_login" href="{{ route('logout') }}" class="btn solid">Logout</a> --}}
                     {{-- <p class="social-text">Or Sign in with social platforms</p>
                     <div class="social-media">
                         <a href="javascript:void(0);" class="social-icon">
