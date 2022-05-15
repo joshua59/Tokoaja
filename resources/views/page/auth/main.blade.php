@@ -4,17 +4,6 @@
             <div class="signin-signup">
                 <form id="form_login" class="sign-in-form">
                     <h2 class="title">Login</h2>
-                    @if(session()->has('user'))
-                        <p>
-                            {{ session()->get('user')->nama }}
-                            {{ session()->get('user')->email }}
-                        </p>
-                        <p>
-                            {{ session()->get('user')->token }}
-                        </p>
-                    @else
-                        <p>Belum login</p>
-                    @endif
                     <div class="input-field">
                         <i class="fas fa-user"></i>
                         <input type="email" placeholder="Email" name="email" id="email_login" data-login="1"/>

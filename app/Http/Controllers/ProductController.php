@@ -36,6 +36,15 @@ class ProductController extends Controller
         ]);
     }
 
+    public function detail($id){
+        $product = Http::get("http://192.168.100.8:8081/api/product/".$id);
+
+        // return $product->json('data');
+        return view("page.product.detail", [
+            "product" => json_decode($product)
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +52,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view("page.product.create");
     }
 
     /**
@@ -54,7 +63,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nama = $request->nama;
+        $harga = (int)$request->harga;
+        $deskripsi = $request->deskripsi;
+        $stok = (int)$request->stok;
+        $gambarfile = fopen($request->file('gambar'), 'r');
+        $id_penjual = UserCredential::user()->id;
+        $product = Http::withHeaders([
+            'Authorization' => UserCredential::user()->token,
+        ])->attach('gambarfile', $gambarfile, null)->post('http://192.168.100.8:8081/api/product', [
+            'nama' => $nama,
+            'harga' => $harga,
+            'deskripsi' => $deskripsi,
+            'stok' => $stok,
+            'id_penjual' => $id_penjual
+        ]);
+
+        return redirect()->route('sellerproduct');
     }
 
     /**
@@ -74,9 +99,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Http::withHeaders([
+            'Authorization' => UserCredential::user()->token
+        ])->get('http://192.168.100.8:8081/api/product/'.$id);
+        
+        return view("page.product.edit", [
+            "product" => json_decode($product)
+        ]);
+        
     }
 
     /**
@@ -86,9 +118,20 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $harga = (int)$request->harga;
+        $deskripsi = $request->deskripsi;
+        $stok = (int)$request->stok;
+        $product = Http::withHeaders([
+            'Authorization' => UserCredential::user()->token,
+        ])->put('http://192.168.100.8:8081/api/product/'.$id, [
+            'harga' => $harga,
+            'deskripsi' => $deskripsi,
+            'stok' => $stok,
+        ]);
+
+        return redirect()->route("product.sellerproduct");
     }
 
     /**
@@ -97,8 +140,13 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Http::withHeaders([
+            'Authorization' => UserCredential::user()->token
+        ])->delete("http://192.168.100.8:8081/api/product/".$id);
+
+        // return $product->json('data');
+        return redirect()->route("sellerproduct");
     }
 }

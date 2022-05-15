@@ -191,6 +191,46 @@ function handle_confirm(id,url,table)
     });
 }
 
+function handle_delete(id,url)
+{
+    Swal.fire({
+        title: "Apakah anda yakin?",
+        text: "Data yang dihapus tidak dapat dikembalikan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Ya, tentu",
+        cancelButtonText: "Tidak",
+        reverseButtons: true
+    }).then(function (result) {
+        if (result.value) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.alert=="success") {
+                        Swal.fire(
+                            "Penghapusan sukses!",
+                            response.message,
+                            "success"
+                        );
+                        load_list(1);
+                    }
+                },
+            });
+        } else if (result.dismiss === "cancel") {
+            Swal.fire(
+                "Dibatalkan",
+                "Penghapusan data dibatalkan",
+                "error"
+            )
+        }
+    });
+}
+
 
 
 

@@ -59,6 +59,9 @@
                             <a class="menu-link" href="{{route('home')}}"><div>Beranda</div></a>
                         </li>
                         @if(session()->has('user'))
+                        <li class="menu-item">
+                            <a class="menu-link" href="{{route('home')}}"><div>Orderan Saya</div></a>
+                        </li>
                         @if(session()->get('user')->role == 'seller')
                         <li class="menu-item">
                             <a class="menu-link" href="{{route('sellerproduct')}}"><div>Produk Saya</div></a>
@@ -67,6 +70,11 @@
                             <a class="menu-link" href="{{route('home')}}"><div>Orderan Masuk</div></a>
                         </li>
                         @endif
+                        @endif
+                        @if(!session()->has('user'))
+                        <li class="menu-item">
+                            <a class="menu-link" href="{{route('auth')}}"><div>Login</div></a>
+                        </li>
                         @endif
                     </ul>
 

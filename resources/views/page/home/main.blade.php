@@ -14,14 +14,14 @@
                                         <div class="bg-overlay">
                                             <div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
                                                 <a href="javascript:void(0);" class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>
-                                                <a href="" class="btn btn-sm btn-primary">Detail</a>
+                                                <a href="{{route('detail', $item->id)}}" class="btn btn-sm btn-primary">Detail</a>
                                                 {{-- <a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a> --}}
                                             </div>
                                             <div class="bg-overlay-bg bg-transparent"></div>
                                         </div>
                                     </div>
                                     <div class="product-desc">
-                                        <div class="product-title"><h3><a href="javascript:void(0);">{{$item->nama}}</a></h3></div>
+                                        <div class="product-title"><h3><a href="{{route('detail', $item->id)}}">{{$item->nama}}</a></h3></div>
                                         <div class="product-price"><ins>Rp. {{number_format($item->harga)}}</ins></div>
                                         <div class="product-description">
                                             {{-- @if (Auth::user()->id == $item->id_penjual)

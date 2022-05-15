@@ -22,6 +22,12 @@ use App\Http\Controllers\UserController;
 
 Route::get('/',[ProductController::class,'index'])->name('home');
 Route::get('myproduct',[ProductController::class,'sellerproduct'])->name('sellerproduct');
+Route::get('product/create',[ProductController::class,'create'])->name('product.create');
+Route::get('product/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+Route::post('product/update/{id}',[ProductController::class,'update'])->name('product.update');
+Route::post('product/create',[ProductController::class,'store'])->name('product.store');
+Route::get('product/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+Route::get('product/{id}',[ProductController::class,'detail'])->name('detail');
 
 Route::get('auth',[AuthController::class, 'index'])->name('auth');
 Route::post('login',[AuthController::class, 'do_login'])->name('login');
