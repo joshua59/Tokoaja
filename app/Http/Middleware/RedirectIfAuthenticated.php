@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use App\Models\UserCredential;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
+        if (UserCredential::user()) {
             return redirect(RouteServiceProvider::HOME);
         }
 

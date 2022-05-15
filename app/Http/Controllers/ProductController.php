@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\UserCredential;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
@@ -19,6 +22,16 @@ class ProductController extends Controller
 
         // return $product->json('data');
         return view("page.home.main", [
+            "product" => json_decode($product)
+        ]);
+    }
+
+    public function sellerproduct()
+    {
+        $product = Http::get("http://192.168.100.8:8081/api/product/seller/".UserCredential::user()->id);
+
+        // return $product->json('data');
+        return view("page.product.sellerproduct", [
             "product" => json_decode($product)
         ]);
     }
