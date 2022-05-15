@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
 
 class ProductController extends Controller
 {
@@ -18,31 +19,48 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Http::get("http://192.168.100.8:8081/api/product");
-
-        // return $product->json('data');
-        return view("page.home.main", [
-            "product" => json_decode($product)
-        ]);
+        try{
+            $product = Http::get("http://192.168.100.8:8081/api/product");
+            return view("page.home.main", [
+                "product" => json_decode($product)
+            ]);
+        }
+        catch(ConnectionException $exception){
+            return view("page.home.main", [
+                "product" => null
+            ]);
+        }
+        // return $product;
+        
     }
 
     public function sellerproduct()
     {
-        $product = Http::get("http://192.168.100.8:8081/api/product/seller/".UserCredential::user()->id);
+        try{
+            $product = Http::get("http://192.168.100.8:8081/api/product/seller/".UserCredential::user()->id);
 
-        // return $product->json('data');
-        return view("page.product.sellerproduct", [
-            "product" => json_decode($product)
-        ]);
+            // return $product->json('data');
+            return view("page.product.sellerproduct", [
+                "product" => json_decode($product)
+            ]);
+        }
+        catch(ConnectionException $exception){
+            return redirect()->route('home');
+        }
     }
 
     public function detail($id){
-        $product = Http::get("http://192.168.100.8:8081/api/product/".$id);
+        try{
+            $product = Http::get("http://192.168.100.8:8081/api/product/".$id);
 
-        // return $product->json('data');
-        return view("page.product.detail", [
-            "product" => json_decode($product)
-        ]);
+            // return $product->json('data');
+            return view("page.product.detail", [
+                "product" => json_decode($product)
+            ]);
+        }
+        catch(ConnectionException $exception){
+            return redirect()->route('home');
+        }
     }
 
     /**

@@ -4,6 +4,7 @@
             <div class="content-wrap bg-light">
                 <div class="container">
                     <div class="row">
+                        @if($product != null)
                         {{-- <div id="shop" class="shop row grid-container gutter-30 mb-5" data-layout="fitRows"> --}}
                             @foreach($product as $item)
                             <div class="product col-lg-3 col-md-4 col-sm-6 col-12">
@@ -35,6 +36,9 @@
                             </div>
                             @endforeach
                         {{-- </div> --}}
+                        @else
+                        Maaf Server Product Sedang Down
+                        @endif
                     </div>
                 </div>
             </div>

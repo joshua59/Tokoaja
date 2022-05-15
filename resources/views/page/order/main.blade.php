@@ -5,6 +5,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
+                            @if($order != null)
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <thead class="text-center">
@@ -19,6 +20,7 @@
                                     </thead>
                                     <tbody class="text-center">
                                     @foreach($order as $item)
+                                        @if($item->id_user == session()->get('user')->id)
                                         <tr>
                                             <td>{{$item->id}}</td>
                                             <td><a href="{{route('detail', $item->id_product)}}">{{$item->id_product}}</a></td>
@@ -33,10 +35,14 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                     </tbody>
                                 </table>
-                            </div>            
+                            </div>  
+                            @else
+                            Maaf Server Order Sedang Down 
+                            @endif          
                         </div>
                     </div>
                 </div>
