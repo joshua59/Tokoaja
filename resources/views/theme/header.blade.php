@@ -60,14 +60,14 @@
                         </li>
                         @if(session()->has('user'))
                         <li class="menu-item">
-                            <a class="menu-link" href="{{route('home')}}"><div>Orderan Saya</div></a>
+                            <a class="menu-link" href="{{route('myorder')}}"><div>Orderan Saya</div></a>
                         </li>
                         @if(session()->get('user')->role == 'seller')
                         <li class="menu-item">
                             <a class="menu-link" href="{{route('sellerproduct')}}"><div>Produk Saya</div></a>
                         </li>
                         <li class="menu-item mega-menu">
-                            <a class="menu-link" href="{{route('home')}}"><div>Orderan Masuk</div></a>
+                            <a class="menu-link" href="{{route('comeorder')}}"><div>Orderan Masuk</div></a>
                         </li>
                         @endif
                         @endif

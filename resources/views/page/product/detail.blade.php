@@ -47,14 +47,23 @@
 
 									<!-- Product Single - Quantity & Cart Button
 									============================================= -->
-									<form class="cart mb-0 d-flex justify-content-between align-items-center" method="post" enctype='multipart/form-data'>
-										<div class="quantity clearfix">
+                                    @if(session()->has('user'))
+									<form class="cart mb-0 d-flex justify-content-between align-items-center" action="{{route('order.create')}}" method="post" enctype='multipart/form-data'>
+                                        @csrf
+										<input type="hidden" name="id_product" value="{{$product->id}}">
+										<input type="hidden" name="id_penjual" value="{{$product->id_penjual}}">
+										<input type="hidden" name="harga" value="{{$product->harga}}">
+                                        <div class="quantity clearfix">
 											<input type="button" value="-" class="minus">
-											<input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" />
+											<input type="number" step="1" min="1" max="{{$product->stok}}" name="jumlah_product" value="1" title="Qty" class="qty" />
 											<input type="button" value="+" class="plus">
 										</div>
 										<button type="submit" class="add-to-cart button m-0">Order</button>
 									</form><!-- Product Single - Quantity & Cart Button End -->
+                                    @else
+                                    Harap <a href="{{route ('auth')}}">Login</a> Terlebih Dahulu Untuk Melakukan Order
+                                    @endif
+
 
 									<div class="line"></div>
 

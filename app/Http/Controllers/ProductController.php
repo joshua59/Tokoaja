@@ -131,7 +131,7 @@ class ProductController extends Controller
             'stok' => $stok,
         ]);
 
-        return redirect()->route("product.sellerproduct");
+        return redirect()->route("sellerproduct");
     }
 
     /**

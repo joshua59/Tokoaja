@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,12 @@ Route::get('logout',[AuthController::class, 'do_logout'])->name('logout');
 Route::get('profile',[UserController::class, 'index'])->name('profile');
 Route::get('profile/edit', [UserController::class, 'edit'])->name('profileedit');
 Route::post('profile/edit', [UserController::class, 'update'])->name('profileupdate');
+
+Route::get('myorder',[OrderController::class,'index'])->name('myorder');
+Route::get('comeorder',[OrderController::class,'comeorder'])->name('comeorder');
+Route::post('order/create',[OrderController::class,'store'])->name('order.create');
+Route::post('order/update/{id}',[OrderController::class,'update'])->name('order.update');
+Route::get('order/delete/{id}',[OrderController::class,'destroy'])->name('order.delete');
 
 
 Route::group(['middleware' => 'auth:web'], function () {
